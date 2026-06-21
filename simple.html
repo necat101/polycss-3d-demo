@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sphere Test</title>
+    <script type="module">
+        // Import PolyCSS elements
+        import 'https://esm.sh/@layoutit/polycss/elements';
+    </script>
+    <style>
+        body {
+            margin: 0;
+            background: #1a1a2e;
+            color: white;
+            font-family: system-ui;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #4ecdc4;
+            margin-bottom: 5px;
+        }
+        .container {
+            flex: 1;
+            position: relative;
+        }
+        poly-camera {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: radial-gradient(circle, #16213e 0%, #0f0f23 100%);
+        }
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            border: 1px solid #4ecdc4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎯 SIMPLE SPHERE TEST</h1>
+        <p style="opacity: 0.7; font-size: 13px;">If you see a colorful sphere, PolyCSS is working!</p>
+    </header>
+    
+    <div class="container">
+        <poly-camera rot-x="25" rot-y="35" distance="400">
+            <poly-scene>
+                <poly-orbit-controls drag wheel></poly-orbit-controls>
+                <poly-ambient-light intensity="0.6"></poly-ambient-light>
+                <poly-directional-light intensity="0.8" x="100" y="200" z="100"></poly-directional-light>
+                
+                <!-- SINGLE ICOSAHEDRON (sphere-like) -->
+                <poly-icosahedron 
+                    id="sphere"
+                    size="100" 
+                    color="#ff6b6b"
+                    x="0" 
+                    y="0" 
+                    z="0">
+                </poly-icosahedron>
+                
+            </poly-scene>
+        </poly-camera>
+        
+        <div class="info">
+            <div>✅ PolyCSS Loaded</div>
+            <div>📊 Check console for details</div>
+            <div>🖱️ Drag to rotate</div>
+            <div>🔍 Scroll to zoom</div>
+        </div>
+    </div>
+
+    <script>
+        // Wait for custom elements to be defined
+        customElements.whenDefined('poly-icosahedron').then(() => {
+            console.log('✅ poly-icosahedron element is ready!');
+            
+            const sphere = document.getElementById('sphere');
+            let rotation = 0;
+            
+            function animate() {
+                rotation += 0.5;
+                if (sphere) {
+                    sphere.setAttribute('rot-y', rotation);
+                    sphere.setAttribute('rot-x', rotation * 0.3);
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+            
+            // Check if polygons are created
+            setTimeout(() => {
+                const polys = document.querySelectorAll('[part="polygon"]');
+                console.log(`✅ Found ${polys.length} polygon elements`);
+                console.log('First polygon:', polys[0]);
+                
+                if (polys.length === 0) {
+                    console.error('❌ No polygons found! PolyCSS may not be working.');
+                    console.error('Check:');
+                    console.error('1. Internet connection (loads from esm.sh)');
+                    console.error('2. Browser console for errors');
+                    console.error('3. Try Chrome/Firefox instead of Safari');
+                } else {
+                    console.log('✅ SUCCESS! PolyCSS is rendering correctly');
+                    console.log('💡 Open DevTools > Elements to inspect the polygon DOM tree');
+                }
+            }, 2000);
+        }).catch(err => {
+            console.error('❌ Failed to load PolyCSS:', err);
+            document.body.innerHTML += '<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:red;padding:20px;border-radius:8px;">Failed to load PolyCSS. Check internet connection and browser console.</div>';
+        });
+        
+        // Log when page loads
+        window.addEventListener('load', () => {
+            console.log('📄 Page loaded');
+            console.log('⏳ Waiting for PolyCSS elements to initialize...');
+        });
+    </script>
+</body>
+</html>

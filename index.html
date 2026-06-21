@@ -3,356 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PolyCSS Donut 🍩 - CSS 3D Donut</title>
+    <title>PolyCSS Donut - FIXED VERSION</title>
     <script type="module" src="https://esm.sh/@layoutit/polycss/elements"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: radial-gradient(ellipse at center, #2c1810 0%, #1a0f08 100%);
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #1a0f08;
             color: #fff;
             overflow: hidden;
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
         header {
-            padding: 18px;
+            padding: 15px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid rgba(255, 107, 107, 0.4);
-            z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            border-bottom: 2px solid #ff6b35;
+            z-index: 100;
         }
-        
         h1 {
-            font-size: 26px;
-            margin-bottom: 6px;
-            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #ff8c42, #ff6b9d);
+            font-size: 22px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 12px rgba(255, 107, 107, 0.6));
-            animation: shimmer 3s ease-in-out infinite;
         }
-        
-        @keyframes shimmer {
-            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 107, 107, 0.6)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255, 217, 61, 0.8)); }
-        }
-        
-        .subtitle {
-            font-size: 13px;
-            opacity: 0.85;
-            color: #ffd93d;
-            letter-spacing: 0.5px;
-        }
-        
         .container {
             flex: 1;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        
         poly-camera {
             width: 100%;
             height: 100%;
             display: block;
-            cursor: grab;
+            background: radial-gradient(circle at center, #2c1810 0%, #1a0f08 70%);
         }
-        
-        poly-camera:active {
-            cursor: grabbing;
-        }
-        
-        .info-panel {
+        .info {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 16px 20px;
-            border-radius: 16px;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.9);
+            padding: 10px 14px;
+            border-radius: 8px;
             font-size: 11px;
-            border: 2px solid rgba(255, 140, 66, 0.4);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            z-index: 1000;
-            max-width: 200px;
+            border: 1px solid #ff6b35;
+            z-index: 100;
         }
-        
-        .info-panel h3 {
-            color: #ffd93d;
-            margin-bottom: 10px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .info-panel div {
-            margin: 5px 0;
-            opacity: 0.85;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .info-panel span:first-child {
-            opacity: 0.7;
-        }
-        
-        .info-panel span:last-child {
-            color: #4ecdc4;
-            font-weight: 600;
-        }
-        
-        .controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 12px;
-            display: flex;
-            gap: 20px;
-            border: 2px solid rgba(255, 140, 66, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-        
-        .control-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-        
-        .control-key {
-            background: linear-gradient(135deg, #ff6b6b, #ff8c42);
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 10px;
-            font-weight: bold;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
+        .info div { margin: 3px 0; }
+        .label { color: #888; }
+        .value { color: #4ecdc4; margin-left: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
     <header>
-        <h1>🍩 DONUT UNIVERSE 🍩</h1>
-        <div class="subtitle">Pure CSS 3D • Every Sprinkle is a DOM Element • No WebGL</div>
+        <h1>🍩 DONUT - FIXED VERSION</h1>
     </header>
     
     <div class="container">
-        <poly-camera 
-            id="camera"
-            rot-x="25" 
-            rot-y="-25" 
-            distance="700">
-            
+        <poly-camera id="camera" rot-x="25" rot-y="30" distance="650">
             <poly-scene>
                 <poly-orbit-controls drag wheel></poly-orbit-controls>
+                <poly-ambient-light intensity="0.7"></poly-ambient-light>
+                <poly-directional-light intensity="0.9" x="100" y="200" z="100"></poly-directional-light>
                 
-                <!-- Lighting -->
-                <poly-ambient-light intensity="0.6"></poly-ambient-light>
-                <poly-directional-light intensity="1.0" x="150" y="200" z="150" color="#fff4e6"></poly-directional-light>
-                <poly-directional-light intensity="0.3" x="-150" y="-100" z="-150" color="#ff6b9d"></poly-directional-light>
-                
-                <!-- Main Donut Group -->
-                <poly-group id="donut-group" x="0" y="0" z="0">
-                    <!-- Donut base - using multiple tori to create a thick donut -->
-                    <!-- If poly-torus is not available, this will gracefully degrade -->
+                <!-- DONUT MADE OF BOXES ARRANGED IN A CIRCLE -->
+                <!-- Main donut ring - 24 segments -->
+                <poly-group id="donut" y="0">
+                    <!-- Segment 0 -->
+                    <poly-box size="28" color="#8B4513" x="95" y="0" z="0" rot-y="0"></poly-box>
+                    <!-- Segment 1 -->
+                    <poly-box size="28" color="#8B4513" x="91.6" y="0" z="24.7" rot-y="15"></poly-box>
+                    <!-- Segment 2 -->
+                    <poly-box size="28" color="#8B4513" x="82.3" y="0" z="47.6" rot-y="30"></poly-box>
+                    <!-- Segment 3 -->
+                    <poly-box size="28" color="#8B4513" x="67.2" y="0" z="67.2" rot-y="45"></poly-box>
+                    <!-- Segment 4 -->
+                    <poly-box size="28" color="#8B4513" x="47.6" y="0" z="82.3" rot-y="60"></poly-box>
+                    <!-- Segment 5 -->
+                    <poly-box size="28" color="#8B4513" x="24.7" y="0" z="91.6" rot-y="75"></poly-box>
+                    <!-- Segment 6 -->
+                    <poly-box size="28" color="#8B4513" x="0" y="0" z="95" rot-y="90"></poly-box>
+                    <!-- Segment 7 -->
+                    <poly-box size="28" color="#8B4513" x="-24.7" y="0" z="91.6" rot-y="105"></poly-box>
+                    <!-- Segment 8 -->
+                    <poly-box size="28" color="#8B4513" x="-47.6" y="0" z="82.3" rot-y="120"></poly-box>
+                    <!-- Segment 9 -->
+                    <poly-box size="28" color="#8B4513" x="-67.2" y="0" z="67.2" rot-y="135"></poly-box>
+                    <!-- Segment 10 -->
+                    <poly-box size="28" color="#8B4513" x="-82.3" y="0" z="47.6" rot-y="150"></poly-box>
+                    <!-- Segment 11 -->
+                    <poly-box size="28" color="#8B4513" x="-91.6" y="0" z="24.7" rot-y="165"></poly-box>
+                    <!-- Segment 12 -->
+                    <poly-box size="28" color="#8B4513" x="-95" y="0" z="0" rot-y="180"></poly-box>
+                    <!-- Segment 13 -->
+                    <poly-box size="28" color="#8B4513" x="-91.6" y="0" z="-24.7" rot-y="195"></poly-box>
+                    <!-- Segment 14 -->
+                    <poly-box size="28" color="#8B4513" x="-82.3" y="0" z="-47.6" rot-y="210"></poly-box>
+                    <!-- Segment 15 -->
+                    <poly-box size="28" color="#8B4513" x="-67.2" y="0" z="-67.2" rot-y="225"></poly-box>
+                    <!-- Segment 16 -->
+                    <poly-box size="28" color="#8B4513" x="-47.6" y="0" z="-82.3" rot-y="240"></poly-box>
+                    <!-- Segment 17 -->
+                    <poly-box size="28" color="#8B4513" x="-24.7" y="0" z="-91.6" rot-y="255"></poly-box>
+                    <!-- Segment 18 -->
+                    <poly-box size="28" color="#8B4513" x="0" y="0" z="-95" rot-y="270"></poly-box>
+                    <!-- Segment 19 -->
+                    <poly-box size="28" color="#8B4513" x="24.7" y="0" z="-91.6" rot-y="285"></poly-box>
+                    <!-- Segment 20 -->
+                    <poly-box size="28" color="#8B4513" x="47.6" y="0" z="-82.3" rot-y="300"></poly-box>
+                    <!-- Segment 21 -->
+                    <poly-box size="28" color="#8B4513" x="67.2" y="0" z="-67.2" rot-y="315"></poly-box>
+                    <!-- Segment 22 -->
+                    <poly-box size="28" color="#8B4513" x="82.3" y="0" z="-47.6" rot-y="330"></poly-box>
+                    <!-- Segment 23 -->
+                    <poly-box size="28" color="#8B4513" x="91.6" y="0" z="-24.7" rot-y="345"></poly-box>
                     
-                    <!-- Main donut body - using a torus if available, otherwise boxes in a ring -->
-                    <poly-group id="donut-body">
-                        <!-- We'll create a donut using multiple boxes arranged in a circle -->
-                        <!-- This creates a "low-poly" donut effect -->
-                    </poly-group>
+                    <!-- ICING LAYER (pink, on top) -->
+                    <poly-box size="26" color="#FF69B4" x="92" y="8" z="0" rot-y="0" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="88.7" y="8" z="23.9" rot-y="15" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="79.7" y="8" z="46.1" rot-y="30" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="65.1" y="8" z="65.1" rot-y="45" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="46.1" y="8" z="79.7" rot-y="60" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="23.9" y="8" z="88.7" rot-y="75" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="0" y="8" z="92" rot-y="90" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-23.9" y="8" z="88.7" rot-y="105" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-46.1" y="8" z="79.7" rot-y="120" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-65.1" y="8" z="65.1" rot-y="135" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-79.7" y="8" z="46.1" rot-y="150" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-88.7" y="8" z="23.9" rot-y="165" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-92" y="8" z="0" rot-y="180" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-88.7" y="8" z="-23.9" rot-y="195" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-79.7" y="8" z="-46.1" rot-y="210" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-65.1" y="8" z="-65.1" rot-y="225" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-46.1" y="8" z="-79.7" rot-y="240" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="-23.9" y="8" z="-88.7" rot-y="255" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="0" y="8" z="-92" rot-y="270" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="23.9" y="8" z="-88.7" rot-y="285" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="46.1" y="8" z="-79.7" rot-y="300" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="65.1" y="8" z="-65.1" rot-y="315" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="79.7" y="8" z="-46.1" rot-y="330" opacity="0.95"></poly-box>
+                    <poly-box size="26" color="#FF69B4" x="88.7" y="8" z="-23.9" rot-y="345" opacity="0.95"></poly-box>
                     
-                    <!-- Glaze layer -->
-                    <poly-group id="glaze-layer" y="3">
-                    </poly-group>
+                    <!-- SPRINKLES -->
+                    <poly-box size="3" color="#FF0000" x="85" y="14" z="15" rot-x="20" rot-z="30"></poly-box>
+                    <poly-box size="3" color="#00FF00" x="-75" y="13" z="60" rot-x="-15" rot-z="45"></poly-box>
+                    <poly-box size="3" color="#0000FF" x="50" y="15" z="-80" rot-x="30" rot-z="-20"></poly-box>
+                    <poly-box size="3" color="#FFFF00" x="-85" y="12" z="-25" rot-x="-25" rot-z="60"></poly-box>
+                    <poly-box size="3" color="#FF00FF" x="25" y="14" z="88" rot-x="40" rot-z="-30"></poly-box>
+                    <poly-box size="3" color="#00FFFF" x="70" y="13" z="-55" rot-x="-10" rot-z="15"></poly-box>
                 </poly-group>
                 
-                <!-- Floating mini donuts around the scene -->
-                <poly-group id="mini-donuts"></poly-group>
-                
-                <!-- Decorative icosahedrons -->
-                <poly-icosahedron size="20" color="#ffd93d" x="250" y="80" z="0" opacity="0.8"></poly-icosahedron>
-                <poly-icosahedron size="20" color="#6bcf7f" x="-250" y="-60" z="80" opacity="0.8"></poly-icosahedron>
-                <poly-icosahedron size="20" color="#4d96ff" x="0" y="100" z="-220" opacity="0.8"></poly-icosahedron>
-                <poly-icosahedron size="18" color="#ff6b6b" x="180" y="-90" z="150" opacity="0.7"></poly-icosahedron>
-                <poly-icosahedron size="18" color="#a78bfa" x="-200" y="70" z="-120" opacity="0.7"></poly-icosahedron>
-                
+                <!-- Floating decorations -->
+                <poly-icosahedron size="18" color="#FFD700" x="200" y="50" z="0"></poly-icosahedron>
+                <poly-icosahedron size="18" color="#FF6347" x="-200" y="-30" z="50" opacity="0.8"></poly-icosahedron>
+                <poly-icosahedron size="18" color="#40E0D0" x="0" y="80" z="-200" opacity="0.8"></poly-icosahedron>
             </poly-scene>
         </poly-camera>
         
-        <div class="info-panel">
-            <h3>🍩 Donut Stats</h3>
-            <div><span>Polygons:</span><span id="poly-count">...</span></div>
-            <div><span>Elements:</span><span id="elem-count">...</span></div>
-            <div><span>FPS:</span><span id="fps">60</span></div>
-            <div><span>Rotation:</span><span id="rotation">0°</span></div>
-        </div>
-        
-        <div class="controls">
-            <div class="control-item">
-                <span class="control-key">DRAG</span>
-                <span>Rotate</span>
-            </div>
-            <div class="control-item">
-                <span class="control-key">SCROLL</span>
-                <span>Zoom</span>
-            </div>
-            <div class="control-item">
-                <span class="control-key">HOVER</span>
-                <span>Inspect</span>
-            </div>
+        <div class="info">
+            <div><span class="label">Polygons:</span><span class="value" id="poly-count">-</span></div>
+            <div><span class="label">Elements:</span><span class="value" id="elem-count">-</span></div>
+            <div><span class="label">Status:</span><span class="value" style="color: #4ade80;">✓ Loaded</span></div>
         </div>
     </div>
 
-    <script type="module">
-        // Wait for PolyCSS to load
-        await customElements.whenDefined('poly-camera');
-        
-        const donutGroup = document.getElementById('donut-group');
-        const donutBody = document.getElementById('donut-body');
-        const glazeLayer = document.getElementById('glaze-layer');
-        const miniDonuts = document.getElementById('mini-donuts');
-        
-        // Create a donut using boxes arranged in a torus shape
-        // This is a fallback if <poly-torus> is not available
-        function createDonutWithBoxes(container, radius, tubeRadius, segments, color, yOffset = 0) {
-            const boxes = [];
-            for (let i = 0; i < segments; i++) {
-                const angle = (i / segments) * Math.PI * 2;
-                const x = Math.cos(angle) * radius;
-                const z = Math.sin(angle) * radius;
+    <script>
+        // Wait for PolyCSS to be ready
+        customElements.whenDefined('poly-camera').then(() => {
+            console.log('🍩 PolyCSS loaded successfully!');
+            
+            // Count elements after a delay to ensure rendering
+            setTimeout(() => {
+                const polygons = document.querySelectorAll('[part="polygon"]');
+                const elements = document.querySelectorAll('poly-box, poly-icosahedron');
                 
-                const box = document.createElement('poly-box');
-                box.setAttribute('size', tubeRadius * 1.8);
-                box.setAttribute('color', color);
-                box.setAttribute('x', x);
-                box.setAttribute('y', yOffset);
-                box.setAttribute('z', z);
-                box.setAttribute('rot-y', (angle * 180 / Math.PI) + 90);
+                document.getElementById('poly-count').textContent = polygons.length.toLocaleString();
+                document.getElementById('elem-count').textContent = elements.length;
                 
-                container.appendChild(box);
-                boxes.push(box);
-            }
-            return boxes;
-        }
-        
-        // Create main donut
-        const mainDonut = createDonutWithBoxes(donutBody, 90, 22, 24, '#d2691e', 0);
-        const glaze = createDonutWithBoxes(glazeLayer, 92, 20, 24, '#ff6b9d', 0);
-        
-        // Add sprinkles to the glaze
-        const sprinkleColors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800'];
-        for (let i = 0; i < 16; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const radiusVariation = 85 + Math.random() * 14;
-            const x = Math.cos(angle) * radiusVariation;
-            const z = Math.sin(angle) * radiusVariation;
-            
-            const sprinkle = document.createElement('poly-box');
-            sprinkle.setAttribute('size', '3');
-            sprinkle.setAttribute('size-y', '8');
-            sprinkle.setAttribute('color', sprinkleColors[Math.floor(Math.random() * sprinkleColors.length)]);
-            sprinkle.setAttribute('x', x);
-            sprinkle.setAttribute('y', '8');
-            sprinkle.setAttribute('z', z);
-            sprinkle.setAttribute('rot-x', Math.random() * 360);
-            sprinkle.setAttribute('rot-z', Math.random() * 360);
-            
-            glazeLayer.appendChild(sprinkle);
-        }
-        
-        // Create mini floating donuts
-        const miniPositions = [
-            { x: 0, y: 180, z: 0, color: '#ffb347' },
-            { x: 0, y: -180, z: 0, color: '#b19cd9' },
-            { x: 200, y: 0, z: 0, color: '#ff7f7f' },
-            { x: -200, y: 0, z: 0, color: '#7fbfff' },
-        ];
-        
-        miniPositions.forEach((pos, i) => {
-            const miniGroup = document.createElement('poly-group');
-            miniGroup.setAttribute('x', pos.x);
-            miniGroup.setAttribute('y', pos.y);
-            miniGroup.setAttribute('z', pos.z);
-            miniGroup.setAttribute('id', `mini-${i}`);
-            
-            createDonutWithBoxes(miniGroup, 25, 7, 12, pos.color, 0);
-            miniDonuts.appendChild(miniGroup);
+                console.log(`Polygons: ${polygons.length}, Elements: ${elements.length}`);
+            }, 1500);
         });
         
-        // Animation
-        let rotation = 0;
-        let time = 0;
-        
+        // Simple rotation animation
+        const donut = document.getElementById('donut-group') || document.querySelector('poly-group');
+        let rot = 0;
         function animate() {
-            rotation += 0.4;
-            time += 0.015;
-            
-            // Rotate main donut
-            if (donutGroup) {
-                donutGroup.setAttribute('rot-y', rotation);
-                donutGroup.setAttribute('rot-x', Math.sin(time * 0.5) * 10);
+            rot += 0.2;
+            if (donut) {
+                donut.setAttribute('rot-y', rot);
             }
-            
-            // Animate mini donuts
-            document.querySelectorAll('[id^="mini-"]').forEach((mini, i) => {
-                const offset = i * Math.PI * 0.5;
-                mini.setAttribute('rot-y', rotation * (1 + i * 0.2));
-                mini.setAttribute('rot-x', Math.sin(time + offset) * 20);
-            });
-            
-            // Update stats
-            document.getElementById('rotation').textContent = Math.floor(rotation % 360) + '°';
-            
             requestAnimationFrame(animate);
         }
-        
         animate();
-        
-        // Update polygon count
-        setTimeout(() => {
-            const polygons = document.querySelectorAll('[part="polygon"]');
-            const elements = document.querySelectorAll('poly-box, poly-icosahedron, poly-group');
-            document.getElementById('poly-count').textContent = polygons.length.toLocaleString();
-            document.getElementById('elem-count').textContent = elements.length;
-            
-            console.log(`%c🍩 DONUT LOADED!`, 'color: #ff6b6b; font-size: 18px; font-weight: bold;');
-            console.log(`%cPolygons: ${polygons.length} | Elements: ${elements.length}`, 'color: #ffd93d;');
-            console.log(`%cMade with pure CSS 3D transforms - no WebGL!`, 'color: #4ecdc4;');
-        }, 1000);
-        
-        // FPS counter
-        let lastTime = performance.now();
-        let frames = 0;
-        function countFPS() {
-            frames++;
-            const now = performance.now();
-            if (now - lastTime >= 1000) {
-                document.getElementById('fps').textContent = frames;
-                frames = 0;
-                lastTime = now;
-            }
-            requestAnimationFrame(countFPS);
-        }
-        countFPS();
     </script>
 </body>
 </html>
